@@ -68,6 +68,8 @@ public:
 	UE_API virtual float GetMaxSpeed() const override;
 	//~End of UMovementComponent interface
 
+	UE_API virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
 protected:
 
 	UE_API virtual void InitializeComponent() override;

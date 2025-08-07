@@ -10,7 +10,7 @@
 #include "Player/LyraPlayerState.h"
 #include "LyraLogChannels.h"
 #include "Net/UnrealNetwork.h"
-
+#include "Tests/PerformanceTestFunc.h"
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraGameState)
 
 class APlayerState;
@@ -98,6 +98,8 @@ void ALyraGameState::Tick(float DeltaSeconds)
 	{
 		ServerFPS = GAverageFPS;
 	}
+
+	FPerformanceTestUtils::TickSleepMarked(DeltaSeconds);
 }
 
 void ALyraGameState::MulticastMessageToClients_Implementation(const FLyraVerbMessage Message)

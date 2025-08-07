@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
+#include "Tests/PerformanceTestFunc.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraCharacterMovementComponent)
 
@@ -128,4 +129,10 @@ float ULyraCharacterMovementComponent::GetMaxSpeed() const
 	}
 
 	return Super::GetMaxSpeed();
+}
+
+void ULyraCharacterMovementComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	FPerformanceTestUtils::FloatComputeMarked();
 }

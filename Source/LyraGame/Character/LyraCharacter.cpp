@@ -16,6 +16,7 @@
 #include "Player/LyraPlayerState.h"
 #include "System/LyraSignificanceManager.h"
 #include "TimerManager.h"
+#include "Tests/PerformanceTestFunc.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraCharacter)
 
@@ -339,11 +340,16 @@ void ALyraCharacter::FellOutOfWorld(const class UDamageType& dmgType)
 void ALyraCharacter::OnDeathStarted(AActor*)
 {
 	DisableMovementAndCollision();
+
+	FPerformanceTestUtils::FloatComputeMarked();
+	FPerformanceTestUtils::TickSleepMarked(0.8);
 }
 
 void ALyraCharacter::OnDeathFinished(AActor*)
 {
 	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &ThisClass::DestroyDueToDeath);
+
+	//FPerformanceTestUtils::ObjectCreationMarked();
 }
 
 
