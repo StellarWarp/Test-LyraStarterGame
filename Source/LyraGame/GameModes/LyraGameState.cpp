@@ -99,7 +99,7 @@ void ALyraGameState::Tick(float DeltaSeconds)
 		ServerFPS = GAverageFPS;
 	}
 
-	FPerformanceTestUtils::TickSleepMarked(DeltaSeconds);
+	//FPerformanceTestUtils::TickSleepMarked(DeltaSeconds);
 }
 
 void ALyraGameState::MulticastMessageToClients_Implementation(const FLyraVerbMessage Message)

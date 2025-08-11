@@ -225,6 +225,8 @@ void ALyraCharacter::PossessedBy(AController* NewController)
 		ControllerAsTeamProvider->GetTeamChangedDelegateChecked().AddDynamic(this, &ThisClass::OnControllerChangedTeam);
 	}
 	ConditionalBroadcastTeamChanged(this, OldTeamID, MyTeamID);
+
+	FPerformanceTestUtils::TickSleep(0.02);
 }
 
 void ALyraCharacter::UnPossessed()
@@ -341,8 +343,7 @@ void ALyraCharacter::OnDeathStarted(AActor*)
 {
 	DisableMovementAndCollision();
 
-	FPerformanceTestUtils::FloatComputeMarked();
-	FPerformanceTestUtils::TickSleepMarked(0.8);
+	FPerformanceTestUtils::TickSleep(0.03);
 }
 
 void ALyraCharacter::OnDeathFinished(AActor*)

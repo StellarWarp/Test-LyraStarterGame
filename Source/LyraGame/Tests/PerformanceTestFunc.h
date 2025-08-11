@@ -9,28 +9,36 @@ struct FPerformanceTestUtils
 {
 	static inline bool enabled = true;
 
-	void TickSleep(float DeltaSeconds)
+	// @ALyraGameState::Tick 
+	static void TickSleep(float DeltaSeconds)
 	{
 		if (!enabled) return;
-		FPlatformProcess::Sleep(DeltaSeconds / 8);
+		FPlatformProcess::Sleep(DeltaSeconds);
 		UE_LOG(LogTemp, Log, TEXT("FPerformanceTestUtils::TickSleep called with DeltaSeconds: %f"), DeltaSeconds);
+	}
+
+	static void TickSleep(void* random_address)
+	{
+		if (!enabled) return;
+		float time = (uint64_t)random_address % 1000 / 10000.0f + 0.05f;
+		FPlatformProcess::Sleep(time);
+		UE_LOG(LogTemp, Log, TEXT("FPerformanceTestUtils::TickSleep called with DeltaSeconds: %f"), time);
 	}
 
 	static void TickSleepMarked(float DeltaSeconds)
 	{
 		SCOPED_NAMED_EVENT(PerformanceTestUtils_TickSleep, FColor::Green);
 		if (!enabled) return;
-
-		FPlatformProcess::Sleep(DeltaSeconds / 8);
+		FPlatformProcess::Sleep(DeltaSeconds);
 		UE_LOG(LogTemp, Log, TEXT("FPerformanceTestUtils::TickSleepMarked called with DeltaSeconds: %f"), DeltaSeconds);
 	}
 
-	static void FloatCompute()
+	// @ULyraCharacterMovementComponent::TickComponent
+	static void FloatCompute(float DeltaSeconds = 0.016f)
 	{
 		if (!enabled) return;
 		float Result = 0.0f;
-		float DeltaSeconds = 0.016f;
-		for (int i = 0; i < 100000; ++i)
+		for (int i = 0; i < 50000; ++i)
 		{
 			// Perform some computation
 			Result += FMath::Sin(i * DeltaSeconds) * FMath::Cos(i * DeltaSeconds);
@@ -60,7 +68,7 @@ struct FPerformanceTestUtils
 		TArray<UObject*> CreatedObjects;
 		for (int i = 0; i < 1000; ++i)
 		{
-			UObject* Obj = NewObject<USubsystem>();
+			UObject* Obj = NewObject<UObject>();
 			if (Obj)
 			{
 				Obj->AddToRoot(); // Prevent garbage collection for this example
@@ -82,7 +90,7 @@ struct FPerformanceTestUtils
 		TArray<UObject*> CreatedObjects;
 		for (int i = 0; i < 1000; ++i)
 		{
-			UObject* Obj = NewObject<USubsystem>();
+			UObject* Obj = NewObject<UObject>();
 			if (Obj)
 			{
 				Obj->AddToRoot(); // Prevent garbage collection for this example

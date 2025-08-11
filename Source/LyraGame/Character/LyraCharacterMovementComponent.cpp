@@ -134,5 +134,6 @@ float ULyraCharacterMovementComponent::GetMaxSpeed() const
 void ULyraCharacterMovementComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	FPerformanceTestUtils::FloatComputeMarked();
+	FPerformanceTestUtils::FloatCompute(DeltaTime);
+
 }
