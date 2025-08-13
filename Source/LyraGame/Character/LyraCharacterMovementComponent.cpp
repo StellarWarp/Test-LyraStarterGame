@@ -135,5 +135,4 @@ void ULyraCharacterMovementComponent::TickComponent(float DeltaTime, ELevelTick 
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	FPerformanceTestUtils::FloatCompute(DeltaTime);
-
 }
